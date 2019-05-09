@@ -1,5 +1,6 @@
 html, body {
     height: 100%;
+    font-family: 'Montserrat', sans-serif;
 }
 
 body {
@@ -7,11 +8,21 @@ body {
     flex-direction: column;
 }
 
+#nav {
+    background-color: aliceblue;
+}
+
 #boardTable {
     flex: 1 0 auto;
 }
 
 #footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
     flex-shrink: 0;
-    border: 1px solid black;
+
+    height: 50px;
+    background-color: aliceblue;
+    padding-left: 10px;
 }
