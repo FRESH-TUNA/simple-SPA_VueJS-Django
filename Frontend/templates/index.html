@@ -7,21 +7,21 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="/static/css/index.css">
 </head>
 
 <body>
     <!--nav-->
     <div id="nav">
         <nav class="navbar navbar-expand-lg navbar-light" id="nav">
-            <a class="navbar-brand" href="index.html">Board</a>
+            <a class="navbar-brand" href="">Board</a>
         </nav>
     </div>
 
     <!--header-->
     <div id="header">
         <h1>TunaDocs</h1>
-        <button class="btn btn-primary">
+        <button class="btn btn-primary" @click="showCreateModal">
             New Document
         </button>
     </div>
@@ -51,10 +51,26 @@
         <div class="title">T U N A S T R E A M</div>
     </div>
 
+    <!--modal-->
+    <div class="modal fade" id="crModal" tabindex="-1" role="dialog" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                </div>
+                <div class="modal-body">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" @click="create">{{action}}</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!--script-->
-    <script src="js/vue.js"></script>
-    <script src="js/main.vue"></script>
+    <script src="static/js/vue.js"></script>
+    <script src="static/js/boardTable.vue"></script>
+    <script src="static/js/crud.vue"></script>
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>
