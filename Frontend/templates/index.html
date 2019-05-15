@@ -16,19 +16,8 @@
         <nav-template></nav-template>
     </div>
 
-    <!--header-->
-    <div id="header">
-        <h1>TunaDocs</h1>
-        <button class="btn btn-primary" @click="showCreateModal">
-            New Document
-        </button>
-    </div>
-    
     <!--mainView-->
     <div id="mainView">
-        <button type="button" v-on:click="currentView = 'main-template'">a</button>
-        <button type="button" v-on:click="currentView = 'post-template'">b</button>
-        <button type="button" v-on:click="currentView = 'detail-template'">c</button>
         <component v-bind:is="currentView" ></component>
     </div>
 
@@ -58,7 +47,7 @@
     <script src="static/js/nav.vue"></script>
     <script src="static/js/mainView.vue"></script>
     <script src="static/js/footer.vue"></script>
-    <script src="static/js/crud.vue"></script>
+    
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
         integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
         crossorigin="anonymous"></script>

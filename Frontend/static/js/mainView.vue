@@ -17,48 +17,52 @@ var detailTemplate = {
 }
 
 var mainTemplate = {
-  /*
-  props: {
-    elements: {
-      type: Array,
-      default() {
-        return []
-      }
-    }
-  },*/
   data: function() {
     return {
       elements: [
         {
             id:1,
             date:2,
-            title:'hoho'
+            title:'hoho',
+            content: '안녕하세요'
         },
         {
             id:2,
             date:3,
-            title:'hihi'
+            title:'hihi',
+            content: '안녕하세요'
         },
         {
             id:2,
             date:3,
-            title:'hihi'
+            title:'hihi',
+            content: '안녕하세요'
         },
         {
             id:2,
             date:3,
-            title:'hihi'
+            title:'hihi',
+            content: '안녕하세요'
         }
-      ]
+      ],
+      postsStyleObject: {
+        padding: '5%',
+      },
+      postStyleObject: {
+        width: '100%',
+        border: '1px solid black',
+        'margin-top': '10px'
+      }
     }
   },
   template:
   `
-    <div>
-      <div v-for="element in elements" :element="element" :key="element.id">
-        <a>{{element.id}}</a>
+    <div v-bind:style="postsStyleObject">
+      <div v-for="element in elements" :element="element" :key="element.id" v-bind:style="postStyleObject">
+        <h3>{{element.title}}</h3>
+        <div>{{element.content}}</div>
         <a>{{element.date}}</a>
-        <a>{{element.title}}</a>
+        
         <button class="btn btn-primary">update</button>
         <button class="btn btn-primary">delete</button>
       </div>
@@ -66,7 +70,7 @@ var mainTemplate = {
   `
 }
 
-new Vue({
+var mainview = new Vue({
     el: '#mainView',
     data: {
         elements: [
@@ -98,4 +102,4 @@ new Vue({
       'post-template':postTemplate,
       'detail-template':detailTemplate
     }
-  });
+});
