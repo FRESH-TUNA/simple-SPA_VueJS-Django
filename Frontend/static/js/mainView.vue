@@ -1,3 +1,6 @@
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = "X-CSRFTOKEN"
+
 var postTemplate = {
   template:
   `
@@ -12,7 +15,9 @@ var createTemplate = {
     return {
       textareaStyleObject: {
         height: '300px'
-      }
+      },
+      title: '',
+      content:''
     }
   },
   template:
@@ -20,13 +25,13 @@ var createTemplate = {
     <form>
       <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" class="form-control" placeholder="Enter title">
+        <input type="text" class="form-control" placeholder="Enter title" v-model:value="title">
       </div>
       <div class="form-group">
         <label for="content">Content</label>
-        <textarea class="form-control" :style="textareaStyleObject"></textarea>
+        <textarea class="form-control" :style="textareaStyleObject" v-model:value="content"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary" @click="">Submit</button>
+      <button type="button" class="btn btn-primary" @click="mainview.createPost(title,content)">Submit</button>
     </form>
   `
 }
@@ -87,14 +92,17 @@ var mainview = new Vue({
           .then(response => (this.currentViewData = response.data.posts)
         );
       },
-      createPost: function(data) {
-          data: {...}; // The exact data doesn't matter
+      createPost: function(_title, _content) {
           csrftoken = Cookies.get('csrftoken'); // Using JS Cookies library
-          headers = {X_CSRFTOKEN: csrftoken};
-          axios.post('http://127.0.0.1:8000/api/create',data,{headers: headers})
-            .then(response => (
-              this.readPosts().then(this.currentView = 'main-template')
-            ))
+          axios.post('http://127.0.0.1:8000/api/create', 
+            {
+              headers: {X_CSRFTOKEN: csrftoken}, 
+              title : _title, 
+              content: _content
+            }).then(response => {
+              this.readPosts()
+              this.currentView = 'main-template'
+            })
       }
     },
     created() {

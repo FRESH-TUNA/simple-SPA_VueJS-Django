@@ -4,6 +4,7 @@ from .forms import *
 from django.http import JsonResponse
 from django.core import serializers
 from django.forms.models import model_to_dict
+import json 
 
 def readPost(request, pk):
     post = get_object_or_404(Post, pk=pk)
@@ -13,12 +14,18 @@ def readPosts(request):
     return JsonResponse({'posts': list(Post.objects.values())})
 
 def createPost(request):
-    newPostForm = PostForm(request.POST)
-    if newPostForm.is_valid():
-        newPostForm.save()
-        return JsonResponse({'result': 'success'})
-    else:
-        return JsonResponse({'result': 'failed'})
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(body_unicode)
+
+    #newPostForm = PostForm(request.POST)
+    newPost = Post()
+    newPost.title = body['title']
+    newPost.content = body['content']
+        #if newPostForm.is_valid():
+    newPost.save()
+    return JsonResponse({'result': 'success'})
+    #else:
+    #    return JsonResponse({'result': 'failed'})
 
 def updatePost(request, pk):
     newPostForm = PostForm(request.POST, instance=get_object_or_404(Post, pk=pk))
