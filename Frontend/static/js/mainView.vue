@@ -24,9 +24,9 @@ var createTemplate = {
       </div>
       <div class="form-group">
         <label for="content">Content</label>
-        <textarea class="form-control" v-bind:style="textareaStyleObject"></textarea>
+        <textarea class="form-control" :style="textareaStyleObject"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="submit" class="btn btn-primary" @click="">Submit</button>
     </form>
   `
 }
@@ -84,9 +84,17 @@ var mainview = new Vue({
     methods: {
       readPosts: function() {
         axios.get('http://127.0.0.1:8000/api/')
-          .then(function(response){
-            mainview.currentViewData = response.data.posts; // 객체 형태로 반환. 파싱작업 불필
-          });
+          .then(response => (this.currentViewData = response.data.posts)
+        );
+      },
+      createPost: function(data) {
+          data: {...}; // The exact data doesn't matter
+          csrftoken = Cookies.get('csrftoken'); // Using JS Cookies library
+          headers = {X_CSRFTOKEN: csrftoken};
+          axios.post('http://127.0.0.1:8000/api/create',data,{headers: headers})
+            .then(response => (
+              this.readPosts().then(this.currentView = 'main-template')
+            ))
       }
     },
     created() {

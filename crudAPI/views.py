@@ -14,7 +14,11 @@ def readPosts(request):
 
 def createPost(request):
     newPostForm = PostForm(request.POST)
-    newPostForm.save()
+    if newPostForm.is_valid():
+        newPostForm.save()
+        return JsonResponse({'result': 'success'})
+    else:
+        return JsonResponse({'result': 'failed'})
 
 def updatePost(request, pk):
     newPostForm = PostForm(request.POST, instance=get_object_or_404(Post, pk=pk))
