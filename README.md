@@ -19,7 +19,7 @@ This Program needs Python3, Django
 brew install python3
 ```
 윈도우환경에서는 그냥 python 으로 치시면 됩니다!
-<br>
+<br><br>
 python 설치후 pip를 이용하여 Django를 설치할수 있지만, 가상환경을 이용한후 pip를 이용하여
 설치하는것을 권장드립니다.
 <br>
