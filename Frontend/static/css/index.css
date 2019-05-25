@@ -1,0 +1,28 @@
+html, body {
+    height: 100%;
+    font-family: 'Montserrat', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+#nav {
+    background-color: aliceblue;
+}
+
+#mainView {
+    flex: 1 0 auto;
+}
+
+#footer {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    flex-shrink: 0;
+
+    height: 50px;
+    background-color: aliceblue;
+    padding-left: 10px;
+}
