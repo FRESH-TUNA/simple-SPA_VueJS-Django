@@ -16,9 +16,7 @@ var createTemplate = {
     return {
       textareaStyleObject: {
         height: '300px'
-      },
-      title: '',
-      content:''
+      }
     }
   },
   template:
@@ -32,7 +30,7 @@ var createTemplate = {
         <label for="content">Content</label>
         <textarea class="form-control" :style="textareaStyleObject" v-model:value="currentViewData.content"></textarea>
       </div>
-      <button type="button" class="btn btn-primary" @click="mainview.createPost(title,content)">Submit</button>
+      <button type="button" class="btn btn-primary" @click="mainview.createPost(currentViewData.title,currentViewData.content,currentViewData.id)">Submit</button>
     </form>
   `
 }
@@ -95,9 +93,10 @@ var mainview = new Vue({
               this.currentView = 'main-template'
           });
       },
-      createPost: function(_title, _content) {
+      createPost: function(_title, _content, id) {
           csrftoken = Cookies.get('csrftoken'); // Using JS Cookies library
-          axios.post('http://127.0.0.1:8000/api/create', 
+          if(id == undefined) {
+            axios.post('http://127.0.0.1:8000/api/create', 
             {
               headers: {X_CSRFTOKEN: csrftoken}, 
               title : _title, 
@@ -106,17 +105,23 @@ var mainview = new Vue({
               this.readPosts()
               this.currentView = 'main-template'
             })
+          }
+          else {
+            axios.post('http://127.0.0.1:8000/api/' + id + '/update', 
+            {
+              headers: {X_CSRFTOKEN: csrftoken}, 
+              title : _title, 
+              content: _content
+            }).then(() => {
+              this.readPosts()
+              this.currentView = 'main-template'
+            })
+          }
       },
       showUpdateForm: function(id) {
         this.currentView = 'create-template'
         axios.get('http://127.0.0.1:8000/api/' + id)
           .then(response => (this.currentViewData = response.data.post)
-        );
-      },
-      updatePost: function(id) {
-        csrftoken = Cookies.get('csrftoken'); // Using JS Cookies library
-        axios.get('http://127.0.0.1:8000/api/id')
-          .then(response => (this.updateTemplateData = response.data.post)
         );
       },
       deletePost: function(id) {

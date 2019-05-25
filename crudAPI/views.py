@@ -21,15 +21,19 @@ def createPost(request):
     newPost = Post()
     newPost.title = body['title']
     newPost.content = body['content']
-        #if newPostForm.is_valid():
+
     newPost.save()
     return JsonResponse({'result': 'success'})
     #else:
     #    return JsonResponse({'result': 'failed'})
 
 def updatePost(request, pk):
-    newPostForm = PostForm(request.POST, instance=get_object_or_404(Post, pk=pk))
+    body_unicode = request.body.decode('utf-8')
+    body = json.loads(body_unicode)
+
+    newPostForm = PostForm(body, instance=get_object_or_404(Post, pk=pk))
     newPostForm.save()
+    return JsonResponse({'result': 'succeed'})
 
 def deletePost(request, pk):
     get_object_or_404(Post, pk=pk).delete()
