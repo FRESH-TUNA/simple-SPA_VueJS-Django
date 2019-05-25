@@ -32,7 +32,6 @@ source venv/bin/activate
 pip3 install django
 ```
 윈도우환경에서는 그냥 pip 으로 치시면 됩니다!
-
 <br><br>
 설치후 아래의 명령어를 입력해 프로그램을 사용할수 있습니다.
 ```
