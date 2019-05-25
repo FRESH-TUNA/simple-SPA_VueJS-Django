@@ -37,4 +37,5 @@ def updatePost(request, pk):
 
 def deletePost(request, pk):
     get_object_or_404(Post, pk=pk).delete()
+    return JsonResponse({'result': 'succeed'})
 

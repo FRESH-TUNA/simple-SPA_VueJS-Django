@@ -125,7 +125,9 @@ var mainview = new Vue({
         );
       },
       deletePost: function(id) {
-
+        axios.get('http://127.0.0.1:8000/api/' + id + '/delete')
+          .then(response => (this.readPosts())
+        );
       }
     },
     created() {
