@@ -11,6 +11,7 @@ var postTemplate = {
 }
 
 var createTemplate = {
+  props: ['currentViewData'],
   data: function() {
     return {
       textareaStyleObject: {
@@ -25,11 +26,11 @@ var createTemplate = {
     <form>
       <div class="form-group">
         <label for="title">Title</label>
-        <input type="text" class="form-control" placeholder="Enter title" v-model:value="title">
+        <input type="text" class="form-control" placeholder="Enter title" v-model:value="currentViewData.title">
       </div>
       <div class="form-group">
         <label for="content">Content</label>
-        <textarea class="form-control" :style="textareaStyleObject" v-model:value="content"></textarea>
+        <textarea class="form-control" :style="textareaStyleObject" v-model:value="currentViewData.content"></textarea>
       </div>
       <button type="button" class="btn btn-primary" @click="mainview.createPost(title,content)">Submit</button>
     </form>
@@ -65,8 +66,8 @@ var mainTemplate = {
         </div>
         <div>{{element.content}}</div>
         <div v-bind:style="postButtonsStyleObject">
-          <button class="btn btn-primary">update</button>
-          <button class="btn btn-primary">delete</button>
+          <button class="btn btn-primary" @click="mainview.showUpdateForm(element.id)">update</button>
+          <button class="btn btn-primary" @click="mainview.deletePost(element.id)">delete</button>
         </div>
       </div>
     </div>
@@ -89,8 +90,10 @@ var mainview = new Vue({
     methods: {
       readPosts: function() {
         axios.get('http://127.0.0.1:8000/api/')
-          .then(response => (this.currentViewData = response.data.posts)
-        );
+          .then(response => {
+              this.currentViewData = response.data.posts
+              this.currentView = 'main-template'
+          });
       },
       createPost: function(_title, _content) {
           csrftoken = Cookies.get('csrftoken'); // Using JS Cookies library
@@ -103,6 +106,21 @@ var mainview = new Vue({
               this.readPosts()
               this.currentView = 'main-template'
             })
+      },
+      showUpdateForm: function(id) {
+        this.currentView = 'create-template'
+        axios.get('http://127.0.0.1:8000/api/' + id)
+          .then(response => (this.currentViewData = response.data.post)
+        );
+      },
+      updatePost: function(id) {
+        csrftoken = Cookies.get('csrftoken'); // Using JS Cookies library
+        axios.get('http://127.0.0.1:8000/api/id')
+          .then(response => (this.updateTemplateData = response.data.post)
+        );
+      },
+      deletePost: function(id) {
+
       }
     },
     created() {
