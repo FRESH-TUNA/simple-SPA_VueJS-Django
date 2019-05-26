@@ -17,7 +17,7 @@
     </div>
 
     <!--mainView-->
-    <div id="mainView" v-bind:style="postsStyleObject">
+    <div id="mainView">
         <component v-bind:is="currentView" :current-view-data="currentViewData"></component>
     </div>
 
@@ -47,7 +47,8 @@
     <script src="static/js/vue.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.min.js"></script>
     <script src="static/js/nav.vue"></script>
-    <script src="static/js/mainView.vue"></script>
+    <script src="https://unpkg.com/http-vue-loader"></script>
+    <script src="static/js/index.vue"></script>
     <script src="static/js/footer.vue"></script>
     
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
